@@ -5,7 +5,8 @@ import re
 
 def cfmat():
 	pattern = re.compile(".*[0-9]+.*")
-	return [pattern,'pdf']
+	form = [pattern,'pdf']
+	return form
 
 def cmpre(filename, form):
 	fname = re.match(form[0], filename)
@@ -17,8 +18,8 @@ def cmpre(filename, form):
 
 
 #wait for testing...
-'''
-def mail_attach(mail_msg, form):
+
+def get_mail_attach(mail_msg, form):
 	for part in mail_msg.walk():
 		filname = part.get_filename()
 		if cmpre(filename, form):
@@ -36,4 +37,5 @@ def cmail(address, password, form):
 	mails = (Mailbox.retr(i+1) for i in range(mail_num))
 	for mail in mails:
 		mail_msg = email.message_from_string('\n'.join(mail[1]))
-'''	
+		get_mail_attach(mail_msg, form)
+	

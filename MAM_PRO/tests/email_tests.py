@@ -16,4 +16,16 @@ def test_cmpre():
 	pattern = re.compile(".*[0-9]+.*")
 	assert_equal(cmpre(filename1, [pattern, 'pdf']), filename1) 
 	assert_equal(cmpre(filename2, [pattern, 'pdf']), None) 
-	assert_equal(cmpre(filename3, [pattern, 'pdf']), None) 
+	assert_equal(cmpre(filename3, [pattern, 'pdf']), None)
+
+
+'''
+#with the login problem
+def test_cmail():
+	address = 'example@qq.com'
+	password = 'wvegpyycauxicajd'
+	form = cfmat()
+	cmail(address, password, form)
+	
+'''
+ 
