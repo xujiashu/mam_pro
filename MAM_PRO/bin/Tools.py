@@ -21,40 +21,48 @@ def create_com_list(file_name):
 	return com_list
 
 
-def match(msg, filename):
-	flag = True
-	msg = msg[0:4]
+def match(msg, filename, match_level=1):
+	match_num = 0
+	if len(msg)>=5:
+		msg = msg[0:4]
 	for item in msg:
 		if item in filename:
-			continue
-		else:
-			flag = False
-	return flag
+			match_num += 1
+	if match_num >= match_level:
+		return True
+	else:
+		return False
+
+def compare(filename, com_list, flag='F'):
+	msg_index = 0						#set index f
+	for msg in com_list:				#for msg in 
+		if match(msg, filename):		#judge wheat
+			return(msg_index, filename)
+		else:							#not fix
+			msg_index += 1				#next_index
+	return (flag,filename)
 
 
 '''
-wheather the rec_list item in com_list
+wheather the rec_list filename in the com_list
 return suc_list and return fail_list
 '''
-def compare(rec_list, com_list):
+def compose_list(rec_list, com_list):
 
 	suc_list = []
 	fail_list = []
-	for filename in rec_list:				#for one filename
-		msg_index = 0						#set index from 0
-		for msg in com_list:				#for msg in com_list index in msg_index
-			if match(msg, filename):		#judge wheather fix the rule
-				suc_list.append(filename)	#add it
-				com_list.pop(msg_index)		#D it from c_l and keep index
-			else:							#not fix
-				fail_list.append(filename)	#add to fail_index
-				msg_index += 1				#next_index
+	for filename in rec_list:			#test filename
+		flag, filename = compare(filename, com_list)
+		if flag != 'F':
+			com_list.pop(flag)
+			suc_list.append(filename)
+		else:
+			fail_list.append(filename)
 
-	remain_list = com_list[:]				#the com_list stay same why?
-	for i in range(len(remain_list)):
-		remain_list[i] = ','.join(remain_list[i])
+	for i in range(len(com_list)):		#compose
+		com_list[i] = ','.join(com_list[i])
 	
-	return (remain_list,fail_list)
+	return (com_list,fail_list)
 
 
 def create_rec_list(path='./'):

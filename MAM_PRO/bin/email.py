@@ -29,7 +29,7 @@ def get_mail_attach(mail_msg, form):
 
 def cmail(address, password, form):
 	server = address.split('@')[1]
-	Mailbox = poplib.POP3('pop.'+server)
+	Mailbox = poplib.POP3_SSL('pop.'+server)
 	Mailbox.user(address)
 	Mailbox.pass_(password)
 
